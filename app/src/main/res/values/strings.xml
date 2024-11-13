@@ -9,6 +9,7 @@
     <string name="button_save_note">Save Note</string>
     <string name="steps_prefix">Steps: </string>
     <string name="button_view_all_notes">View All Notes</string>
+
     <!-- Notes Activity Strings -->
     <string name="hint_enter_note">Enter your note here</string>
 

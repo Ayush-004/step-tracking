@@ -17,7 +17,7 @@ public class ViewNotesActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NotesAdapter notesAdapter;
     private NotesDatabaseHelper dbHelper;
-    private List<String> notesList;
+    private List<Note> notesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class ViewNotesActivity extends AppCompatActivity {
             Toast.makeText(this, "No notes available.", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "No notes found in the database.");
         } else {
-            notesAdapter = new NotesAdapter(notesList);
+            notesAdapter = new NotesAdapter(this, notesList);
             recyclerView.setAdapter(notesAdapter);
             Log.d(TAG, "Notes loaded and displayed.");
         }

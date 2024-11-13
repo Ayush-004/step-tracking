@@ -5,14 +5,36 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="12dp"
-    android:background="?attr/selectableItemBackground">
+    android:background="@drawable/item_background"
+    android:layout_marginBottom="8dp">
 
     <TextView
-        android:id="@+id/textViewNote"
+        android:id="@+id/textViewNoteContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sample Note"
         android:textSize="16sp"
-        android:textColor="#000000"/>
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textViewNoteTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2023-10-12 14:30:00"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Delete Button -->
+    <ImageButton
+        android:id="@+id/buttonDeleteNote"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_delete"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Delete Note"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"/>
 
 </LinearLayout>

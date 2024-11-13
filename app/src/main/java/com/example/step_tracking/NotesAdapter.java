@@ -1,10 +1,11 @@
-// app/src/main/java/com/example/step_tracking/NotesAdapter.java
-
 package com.example.step_tracking;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,10 +16,14 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
 
-    private List<String> notesList;
+    private List<Note> notesList;
+    private NotesDatabaseHelper dbHelper;
+    private Context context;
 
-    public NotesAdapter(List<String> notes) {
+    public NotesAdapter(Context context, List<Note> notes) {
         this.notesList = notes;
+        this.context = context;
+        this.dbHelper = new NotesDatabaseHelper(context);
     }
 
     @NonNull
@@ -31,12 +36,34 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        String note = notesList.get(position);
-        holder.textViewNote.setText(note);
+        Note note = notesList.get(position);
+        holder.textViewNoteContent.setText(note.getContent());
+        holder.textViewNoteTimestamp.setText(note.getTimestamp());
 
-        // Optional: Handle click events on individual notes
+        // Handle delete button click
+        holder.buttonDeleteNote.setOnClickListener(v -> {
+            // Confirm deletion
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete Note")
+                    .setMessage("Are you sure you want to delete this note?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        int rowsAffected = dbHelper.deleteNote(note.getContent(), note.getTimestamp());
+                        if (rowsAffected > 0) {
+                            notesList.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, notesList.size());
+                            Toast.makeText(context, "Note deleted.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Error deleting note.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        });
+
+        // Optional: Handle item click to view details or edit
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Note: " + note, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Note: " + note.getContent(), Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -47,11 +74,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     // ViewHolder class for each note item
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewNote;
+        TextView textViewNoteContent;
+        TextView textViewNoteTimestamp;
+        ImageButton buttonDeleteNote;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewNote = itemView.findViewById(R.id.textViewNote);
+            textViewNoteContent = itemView.findViewById(R.id.textViewNoteContent);
+            textViewNoteTimestamp = itemView.findViewById(R.id.textViewNoteTimestamp);
+            buttonDeleteNote = itemView.findViewById(R.id.buttonDeleteNote);
         }
     }
 }
