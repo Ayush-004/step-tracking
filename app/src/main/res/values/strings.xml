@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">StepTrackerApp</string>
+
+    <!-- Main Activity Strings -->
+    <string name="button_open_notes">Take a Note</string>
+    <string name="button_view_logs">View Logs</string>
+    <string name="button_save_note">Save Note</string>
+    <string name="steps_prefix">Steps: </string>
+    <string name="button_view_all_notes">View All Notes</string>
+    <!-- Notes Activity Strings -->
+    <string name="hint_enter_note">Enter your note here</string>
+
+    <!-- Logs Activity Strings -->
+    <string name="loading_logs">Loading logs...</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_title">Step Tracker Alert</string>
+    <string name="notification_ok">OK</string>
+    <string name="notification_dismiss">Dismiss</string>
+
+    <!-- Toast Messages -->
+    <string name="toast_permission_granted">Permission Granted!</string>
+    <string name="toast_permission_denied">Permission Denied!</string>
+    <string name="toast_ok_clicked">OK clicked</string>
+    <string name="toast_dismiss_clicked">Dismiss clicked</string>
+    <string name="toast_note_saved">Note Saved!</string>
+    <string name="toast_enter_note">Please enter a note.</string>
+    <string name="toast_invalid_notification_id">Invalid notification ID.</string>
+    <string name="toast_error_reading_logs">Error reading logs.</string>
+    <string name="toast_no_logs">No logs available.</string>
+
+    <!-- Miscellaneous -->
+    <string name="step_tracker_channel">StepTrackerChannel</string>
+</resources>

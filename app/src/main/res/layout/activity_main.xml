@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <!-- Step Count Display -->
+    <TextView
+        android:id="@+id/stepCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Steps: 0"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="40dp"
+        />
+
+    <!-- Button to Open Notes -->
+    <Button
+        android:id="@+id/openNotesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_open_notes"
+        android:padding="12dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Button to Open Logs -->
+    <Button
+        android:id="@+id/openLogsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_view_logs"
+        android:padding="12dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Button to View All Notes -->
+    <Button
+        android:id="@+id/viewAllNotesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View All Notes"
+        android:padding="12dp" />
+
+</LinearLayout>
