@@ -196,8 +196,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // For testing purposes, schedule notifications every 10 seconds
         // Replace with scheduleHourlyNotification(this) for production
 
-//        NotificationHelper.schedule10SecondNotification(this);
-        NotificationHelper.scheduleHourlyNotification(this);
+        NotificationHelper.schedule10SecondNotification(this);
+//        NotificationHelper.scheduleHourlyNotification(this);
         Log.d("MainActivity", "Notifications scheduled.");
     }
 

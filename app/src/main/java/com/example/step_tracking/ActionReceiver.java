@@ -4,11 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.app.NotificationManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 
 public class ActionReceiver extends BroadcastReceiver {
 
@@ -36,7 +39,20 @@ public class ActionReceiver extends BroadcastReceiver {
         if ("OK_ACTION".equals(action)) {
             userResponse = "OK";
             Toast.makeText(context, "OK clicked", Toast.LENGTH_SHORT).show();
-            // Implement additional logic if needed
+
+            // Start NotesActivity
+            Intent notesIntent = new Intent(context, NotesActivity.class);
+            notesIntent.putExtra("notification_id", notificationId);
+            notesIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Required to start activity from non-activity context
+
+            try {
+                context.startActivity(notesIntent);
+                Log.d(TAG, "NotesActivity launched for notification ID: " + notificationId);
+            } catch (ActivityNotFoundException e) {
+                Log.e(TAG, "NotesActivity not found.", e);
+                Toast.makeText(context, "Unable to open Notes.", Toast.LENGTH_SHORT).show();
+            }
+
         } else if ("DISMISS_ACTION".equals(action)) {
             userResponse = "Dismiss";
             Toast.makeText(context, "Dismiss clicked", Toast.LENGTH_SHORT).show();
@@ -54,6 +70,7 @@ public class ActionReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
             notificationManager.cancel(notificationId);
+            Log.d(TAG, "Notification with ID " + notificationId + " dismissed.");
         }
     }
 

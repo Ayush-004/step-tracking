@@ -13,8 +13,8 @@ public class BootReceiver extends BroadcastReceiver {
         if(Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())){
             Log.d(TAG, "Device rebooted. Rescheduling notifications.");
             // Schedule notifications (use schedule10SecondNotification for testing)
-//            NotificationHelper.schedule10SecondNotification(context);
-            NotificationHelper.scheduleHourlyNotification(context);
+            NotificationHelper.schedule10SecondNotification(context);
+//            NotificationHelper.scheduleHourlyNotification(context);
         }
     }
 }

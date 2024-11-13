@@ -13,11 +13,12 @@ import java.util.List;
 public class NotesDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "notesDB";
-    private static final int DATABASE_VERSION = 2; // Incremented for schema change
+    private static final int DATABASE_VERSION = 3; // Incremented for schema change
     private static final String TABLE_NOTES = "Notes";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NOTE = "note";
     private static final String COLUMN_TIMESTAMP = "timestamp";
+    private static final String COLUMN_NOTIFICATION_ID = "notification_id"; // New column
 
     public NotesDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,28 +29,30 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         String CREATE_TABLE = "CREATE TABLE " + TABLE_NOTES + "("
                 + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_NOTE + " TEXT,"
-                + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
+                + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                + COLUMN_NOTIFICATION_ID + " INTEGER"
                 + ")";
         db.execSQL(CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Add the timestamp column if upgrading from version 1 to 2
-        if (oldVersion < 2) {
-            String ADD_TIMESTAMP = "ALTER TABLE " + TABLE_NOTES + " ADD COLUMN " + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP";
-            db.execSQL(ADD_TIMESTAMP);
+        // Add the notification_id column if upgrading from version 2 to 3
+        if (oldVersion < 3) {
+            String ADD_NOTIFICATION_ID = "ALTER TABLE " + TABLE_NOTES + " ADD COLUMN " + COLUMN_NOTIFICATION_ID + " INTEGER";
+            db.execSQL(ADD_NOTIFICATION_ID);
         }
     }
 
-    public void insertNote(String note){
+    public void insertNote(String note, int notificationId){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE, note);
-        // The timestamp will be automatically set to the current time
+        values.put(COLUMN_NOTIFICATION_ID, notificationId);
         db.insert(TABLE_NOTES, null, values);
         db.close();
     }
+
 
     /**
      * Retrieves all notes along with their timestamps from the database.

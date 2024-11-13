@@ -15,7 +15,7 @@ import java.util.Locale;
 public class NotificationReceiver extends BroadcastReceiver {
 
     private static final String TAG = "NotificationReceiver";
-    private static int notificationIdCounter = 100; // Starting ID for notifications
+    private static int notificationIdCounter = 100;
 
     @Override
     public void onReceive(Context context, Intent intent) {
